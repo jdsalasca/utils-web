@@ -9,7 +9,7 @@
   
   <groupId>com.jdsalasca</groupId>
   <artifactId>utils-web</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
    <url>http://maven.apache.org</url>
   <name>utils</name>
   <description>utils for web development for spring boot 3 </description>
