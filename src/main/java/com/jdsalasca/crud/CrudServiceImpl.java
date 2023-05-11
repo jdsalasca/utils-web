@@ -15,7 +15,7 @@ import org.springframework.validation.BindingResult;
 import com.jdsalasca.defaultresponse.DefaultResponse;
 import com.jdsalasca.defaultresponse.DefaultResponse.DEFAULTMESSAGES;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 
