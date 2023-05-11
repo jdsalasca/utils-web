@@ -1,8 +1,6 @@
 package com.jdsalasca.crud;
 
 import java.io.Serializable;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
