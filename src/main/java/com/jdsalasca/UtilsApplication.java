@@ -1,8 +1,9 @@
 package com.jdsalasca;
 
+import java.util.Collections;
+
 import com.jdsalasca.defaultresponse.DefaultResponse;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 
 public class UtilsApplication {
 

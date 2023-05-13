@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.exception.ConstraintViolationException;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,9 @@ import org.springframework.validation.BindingResult;
 
 import com.jdsalasca.defaultresponse.DefaultResponse;
 import com.jdsalasca.defaultresponse.DefaultResponse.DEFAULTMESSAGES;
+import com.jdsalasca.exceptions.EntityNotFoundException;
 
-import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -34,13 +34,14 @@ It implements the {@link com.jdsk.people.interfaces.ICrudInterface} interface.
 @param <R> the repository that will be used to access the entity data
 */
 @Slf4j
+@RequiredArgsConstructor
 public abstract class CrudServiceImpl<T, K, ID extends Serializable, R extends JpaRepository<T, ID>>
 implements ICrudInterface<T, K, ID, R> {
 
-	@Autowired
-	private R repository;
-	@Autowired
-	private ModelMapper modelMapper;
+	
+	private final R repository;
+
+	private final ModelMapper modelMapper;
     
     /**
 
@@ -93,9 +94,6 @@ if no entity with the given id exists in the database.
 		} catch (DataIntegrityViolationException e) {
 			log.info("error creating entity for {} because of {}", entityClass ,e.getLocalizedMessage());
 			return DefaultResponse.onThrow400ResponseTypeInfo(e.getMostSpecificCause().getLocalizedMessage());
-		}catch (ConstraintViolationException constraintViolationException) {
-            return DefaultResponse.onThrow400ResponseTypeError(List.of(constraintViolationException.getMessage()).toString());
-	        
 		}catch (EntityNotFoundException e) {
 			return DefaultResponse.onThrow400ResponseTypeInfo(e.getLocalizedMessage());
 	        
@@ -131,9 +129,6 @@ if no entity with the given id exists in the database.
 			log.info("error creating entity for {} because ofe " + e.getLocalizedMessage(), entityClass);
 			return DefaultResponse.onThrow400ResponseTypeInfo(e.getMostSpecificCause().getMessage());
 			
-		}catch (ConstraintViolationException constraintViolationException) {
-	            return DefaultResponse.onThrow400ResponseTypeError(List.of(constraintViolationException.getMessage()).toString());
-	        
 		}catch (Exception e) {
 			log.info("IMPORTANT unhandle exception {}", e.getLocalizedMessage());
 			log.info("error creating entity for {} because of " + e.getLocalizedMessage(), entityClass);

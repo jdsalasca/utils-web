@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
+
 
 import lombok.*;
 
@@ -283,12 +282,11 @@ public class DefaultResponse<T> {
 		this.error = List.of(new Error(error, (this.messageType != null) ? this.messageType : MESSAGETYPES.ERROR));
 	}
 
-	@JsonSetter
 	public void setError(List<Error> error) {
 		this.error = error;
 	}
 
-	@JsonSetter
+	
 	public void setMessage(List<Message> message) {
 		this.message = message;
 	}
